@@ -198,7 +198,9 @@ exchange.prototype.placeOrder = function(type, amount, price, retry, cb) {
     var pair = this.currencyPair.pair;
 
     var handler = function(err, result) {
-
+      if(err) {
+          console.log('ERROR', err);
+      }
       if(!err) {
 
         if(!result.error) {

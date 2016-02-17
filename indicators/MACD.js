@@ -54,8 +54,6 @@ indicator.prototype.calculate = function(cs) {
 
   this.indicator = {'emaLong': emaLong, 'emaShort': emaShort, 'macd': macd, 'macdSignal': macdSignal, 'result': macdHistogram};
 
-  console.log('NOW INDICATOR>> ', this.indicator, '\nPREVIOUS INDICATOR>> ', this.previousIndicator);
-
   if(this.previousIndicator.result <= this.options.buyThreshold && this.indicator.result > this.options.buyThreshold) {
 
     this.advice = 'buy';
@@ -69,9 +67,6 @@ indicator.prototype.calculate = function(cs) {
     this.advice = 'hold';
 
   }
-
-  console.log('PERIOD>>' , this.length, ' Needed>>', this.options.neededPeriods);
-  console.log('ADVICE>> ', this.advice, 'Value>>', this.indicator.result);
 
   if(this.length >= this.options.neededPeriods) {
 

@@ -179,6 +179,9 @@ agent.prototype.placeSimulatedOrder = function() {
 
 agent.prototype.processOrder = function(err, order) {
 
+  if (err) {
+      console.log(err);
+  }
   if(!order) {
 
     this.logger.log('Something went wrong when placing the ' + this.orderDetails.orderType + ' order.');
