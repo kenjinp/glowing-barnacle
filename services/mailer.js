@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var mandrillTransport = require('nodemailer-mandrill-transport');
 var _ = require('underscore');
 
 var mailer = function(mail, logger) {
@@ -7,7 +8,7 @@ var mailer = function(mail, logger) {
 
   if(mail) {
 
-    this.transporter = nodemailer.createTransport(mail.transporter);
+    this.transporter = nodemailer.createTransport(mandrillTransport(mail.transporter));
     this.defaults = {
         to: mail.to,
         from: mail.from
@@ -24,7 +25,7 @@ var mailer = function(mail, logger) {
 
 };
 
-pusher.prototype.send = function(options) {
+mailer.prototype.send = function(options) {
 
   if(this.configured) {
 
@@ -34,7 +35,7 @@ pusher.prototype.send = function(options) {
         if (error){
             throw error;
         }
-        this.logger.log('Email sent: ' + info.response);
+        this.logger.log('Email sent: ' + JSON.stringify(info, null, 2));
     }.bind(this));
 
   } else {

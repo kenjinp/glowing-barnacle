@@ -10,7 +10,7 @@ var candleaggregator = require('../services/candleaggregator');
 var tradingadvisor = require('../services/tradingadvisor.js');
 var tradingagent = require('../services/tradingagent.js');
 var pushservice = require('../services/pushservice.js');
-var mailer = require('../services/mailer.js');
+var mailerService = require('../services/mailer.js');
 var ordermonitor = require('../services/ordermonitor.js');
 var profitreporter = require('../services/profitreporter.js');
 
@@ -118,8 +118,8 @@ var trader = function() {
 
     if(config.mailer.enabled) {
       mailer.send({
-          title: 'BitBot - Order Placed! ✔',
-          message: '<h1>Placed Order</h1> <h2>Placed ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')</h2>'
+          title: 'BitBot - Simulated Order Placed! ✔',
+          message: '<h1>Sumulated Placed Order</h1> <h2>Placed ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')</h2>'
       });
     }
 
@@ -159,6 +159,13 @@ var trader = function() {
 
     if(config.pushOver.enabled) {
       pusher.send('BitBot - Profit Report!', report, 'magic', 1);
+    }
+
+    if(config.mailer.enabled) {
+      mailer.send({
+          title: 'BitBot - Profit Report!',
+          message: '<h1>Report</h1> <h2>' + report + '</h2>'
+      });
     }
 
   });
