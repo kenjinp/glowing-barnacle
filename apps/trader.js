@@ -28,7 +28,7 @@ var aggregator = new candleaggregator(config.indicatorSettings.candleStickSizeMi
 var advisor = new tradingadvisor(config.indicatorSettings, storage, logger);
 var agent = new tradingagent(config.tradingEnabled, config.exchangeSettings, storage, exchangeapi, logger);
 var pusher = new pushservice(config.pushOver, logger);
-var mailer = new mailer(config.mailer, logger);
+var mailer = new mailerService(config.mailer, logger);
 var monitor = new ordermonitor(exchangeapi, logger);
 var reporter = new profitreporter(config.exchangeSettings.currencyPair, storage, exchangeapi, logger);
 //------------------------------InitializeModules
