@@ -5,17 +5,18 @@
   "main": "app.js",
   "dependencies": {
     "async": "0.9.0",
-    "flat": "1.5.0",
     "bitstamp-api": "0.1.9",
+    "btc-e": "1.0.5",
+    "flat": "1.5.0",
+    "forever": "~0.15.1",
+    "kraken-exchange-api": "0.1.0",
     "mime": "1.2.11",
     "moment": "2.9.0",
     "mongojs": "0.18.0",
+    "nodemailer": "^2.1.0",
     "pushover-notifications": "0.2.2",
     "underscore": "1.7.0",
-    "kraken-exchange-api": "0.1.0",
-    "btc-e": "1.0.5",
-    "winston": "0.8.3",
-    "forever": "~0.15.1"
+    "winston": "0.8.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

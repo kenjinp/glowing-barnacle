@@ -10,6 +10,7 @@ var candleaggregator = require('../services/candleaggregator');
 var tradingadvisor = require('../services/tradingadvisor.js');
 var tradingagent = require('../services/tradingagent.js');
 var pushservice = require('../services/pushservice.js');
+var mailer = require('../services/mailer.js');
 var ordermonitor = require('../services/ordermonitor.js');
 var profitreporter = require('../services/profitreporter.js');
 
@@ -27,6 +28,7 @@ var aggregator = new candleaggregator(config.indicatorSettings.candleStickSizeMi
 var advisor = new tradingadvisor(config.indicatorSettings, storage, logger);
 var agent = new tradingagent(config.tradingEnabled, config.exchangeSettings, storage, exchangeapi, logger);
 var pusher = new pushservice(config.pushOver, logger);
+var mailer = new mailer(config.mailer, logger);
 var monitor = new ordermonitor(exchangeapi, logger);
 var reporter = new profitreporter(config.exchangeSettings.currencyPair, storage, exchangeapi, logger);
 //------------------------------InitializeModules
@@ -97,6 +99,13 @@ var trader = function() {
       pusher.send('BitBot - Order Placed!', 'Placed ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')', 'magic', 1);
     }
 
+    if(config.mailer.enabled) {
+      mailer.send({
+          title: 'BitBot - Order Placed! ✔',
+          message: '<h1>Placed Order</h1> <h2>Placed ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')</h2>'
+      });
+    }
+
     monitor.add(orderDetails, config.orderKeepAliveMinutes);
 
   });
@@ -105,6 +114,13 @@ var trader = function() {
 
     if(config.pushOver.enabled) {
       pusher.send('BitBot - Order Simulated!', 'Simulated ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')', 'magic', 1);
+    }
+
+    if(config.mailer.enabled) {
+      mailer.send({
+          title: 'BitBot - Order Placed! ✔',
+          message: '<h1>Placed Order</h1> <h2>Placed ' + orderDetails.orderType + ' order: (' + orderDetails.amount + '@' + orderDetails.price + ')</h2>'
+      });
     }
 
     monitor.add(orderDetails, config.orderKeepAliveMinutes);
